@@ -15,21 +15,27 @@ class HH:
 
     def get_employers(self):
         """загрузка работодателей"""
-        employers_info = []
-        for employer_id in self.employers:
-            temp_url = f"{self.__url}employers/{employer_id}"
-            employer_data = requests.get(temp_url).json()
-            employers_info.append(employer_data)
+        try:
+            employers_info = []
+            for employer_id in self.employers:
+                temp_url = f"{self.__url}employers/{employer_id}"
+                employer_data = requests.get(temp_url).json()
+                employers_info.append(employer_data)
 
-        return employers_info
+            return employers_info
+        except Exception as e:
+            print(f'Something going wrong with connection, mistake {e}')
 
     def load_vacancies(self):
         """загрузка вакансий"""
-        vacancy_info = []
-        for employer_id in self.employers:
-            self._params["employer_id"] = employer_id
-            vacancy_url = f"{self.__url}vacancies"
-            response = requests.get(vacancy_url, headers=self._headers, params=self._params)
-            vacancies = response.json()['items']
-            vacancy_info.extend(vacancies)
-        return vacancy_info
+        try:
+            vacancy_info = []
+            for employer_id in self.employers:
+                self._params["employer_id"] = employer_id
+                vacancy_url = f"{self.__url}vacancies"
+                response = requests.get(vacancy_url, headers=self._headers, params=self._params)
+                vacancies = response.json()['items']
+                vacancy_info.extend(vacancies)
+            return vacancy_info
+        except Exception as e:
+            print(f'Something going wrong with connection, mistake {e}')
