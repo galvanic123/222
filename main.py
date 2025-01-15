@@ -4,6 +4,7 @@ from src.db_class import DBManager
 from src.utils import create_database, save_data_to_database
 from tabulate import tabulate
 
+
 def main():
     """Функция для работы программы"""
     params = config()
